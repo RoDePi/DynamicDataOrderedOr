@@ -33,6 +33,7 @@ public partial class BasicSample : IDisposable
     public ReadOnlyObservableCollection<string> SortedListsCombined1 { get; }
     public ReadOnlyObservableCollection<string> SortedListsCombined2 { get; }
     public ReadOnlyObservableCollection<string> SortedListsMerged { get; }
+    public ReadOnlyObservableCollection<string> SortedListsTransformMany { get; }
     #endregion
 
     #region Constructors
@@ -98,6 +99,20 @@ public partial class BasicSample : IDisposable
                 .Sort(SortExpressionComparer<string>.Descending(s => s)))
             .Bind(out var sortedListsMerged).Subscribe());
         SortedListsMerged = sortedListsMerged;
+
+        var sourceLists = new SourceList<IObservableList<string>>();
+        sourceLists.AddRange(new[]
+        {
+            _sourceList1.Connect().Sort(SortExpressionComparer<string>.Ascending(s => s)).AsObservableList(),
+            _sourceList2.Connect().Sort(SortExpressionComparer<string>.Descending(s => s)).AsObservableList()
+        });
+        _cleanUp.Add(sourceLists
+            .Connect()
+            .TransformMany(sl => sl)
+            .Bind(out var sortedListsTransformMany)
+            .Subscribe());
+        SortedListsTransformMany = sortedListsTransformMany;
+
         InitializeComponent();
     }
     #endregion

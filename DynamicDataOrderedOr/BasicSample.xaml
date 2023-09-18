@@ -32,7 +32,7 @@
             </Setter>
         </Style>
     </UserControl.Resources>
-    <UniformGrid Columns="3">
+    <UniformGrid Columns="4">
         <Border>
             <DockPanel>
                 <TextBlock DockPanel.Dock="Top">Sorted list 1</TextBlock>
@@ -47,6 +47,7 @@
                 <ListBox DockPanel.Dock="Top" ItemsSource="{Binding SortedList2}" />
             </DockPanel>
         </Border>
+        <Border />
         <Border />
         <Border>
             <DockPanel>
@@ -64,6 +65,12 @@
             <DockPanel>
                 <TextBlock DockPanel.Dock="Top">Sorted lists merged</TextBlock>
                 <ListBox DockPanel.Dock="Bottom" ItemsSource="{Binding SortedListsMerged}" />
+            </DockPanel>
+        </Border>
+        <Border>
+            <DockPanel>
+                <TextBlock DockPanel.Dock="Top">Sorted lists TransformMany</TextBlock>
+                <ListBox DockPanel.Dock="Bottom" ItemsSource="{Binding SortedListsTransformMany}" />
             </DockPanel>
         </Border>
     </UniformGrid>
